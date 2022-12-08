@@ -1,10 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	fmt.Println("Hello")
-	fmt.Println("Hello")
-	fmt.Println("Hello")
-
+	app := gin.Default()
+	app.Handle("GET", "/ping", func(context *gin.Context) {
+		name := context.DefaultQuery("name", "王二狗")
+		context.Writer.Write([]byte(name))
+	})
+	app.Run()
 }
